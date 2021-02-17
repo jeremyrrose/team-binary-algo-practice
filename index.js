@@ -2,15 +2,20 @@
 
 const fiveInserter = (original) => {
 
-    const digits = original.toString().split('')
-    const insertHere = digits.findIndex(num => Number(num) <= 5)
+    // split the number into ordered array of digits
+    const digits = original.toString().split('').map(str => parseInt(str))
 
+    // find the earliest index 5 or lower
+    const insertHere = digits.findIndex(num => num <= 5)
+
+    // put the 5 at that index if it exists, else put it at the end
     if (insertHere > -1) {
-        digits.splice(insertHere, 0, '5')
+        digits.splice(insertHere, 0, 5)
     } else {
-        digits.push('5')
+        digits.push(5)
     }
 
+    // return an integer derived from the joined digits
     return Number(digits.join(''))
 }
 
@@ -23,6 +28,7 @@ console.log(fiveInserter(99996786666))
 
 const balFrag = (str, len=str.length) => {
 
+    // initial values
     let shortLen = len
     let shortIndex = -1
 
@@ -31,19 +37,25 @@ const balFrag = (str, len=str.length) => {
 
         let j = i
         const chars = {}
+
+        // nested loop -- BAD!
+        // but at least the inner loop gets shorter as shortLen grows smaller
         while (j - i < shortLen && j < len) {
             const letter = str[j]
 
+            // if the current letter is not in chars, add it
             if (
                 !chars[letter.toLowerCase()] 
                 && !chars[letter.toUpperCase()]
                 ) {
                     chars[letter] = 1
+            // if the current letter is upper and the lower version exists, set to 0
             } else if (
                 letter == letter.toUpperCase() 
                 && !!chars[letter.toLowerCase()]
                 ) {
                     chars[letter.toLowerCase()] = 0
+            // if the current letter is lower and the upper version exists, set to 0
             } else if (
                 letter == letter.toLowerCase() 
                 && !!chars[letter.toUpperCase()]
@@ -51,7 +63,9 @@ const balFrag = (str, len=str.length) => {
                     chars[letter.toUpperCase()] = 0
             } 
 
+            // if the length of the array of all values !== 0 is 0, then every letter has a match
             if (!Object.values(chars).filter(val => val != 0).length) {
+                // update shortLen and shortIndex
                 shortLen = j - i
                 shortIndex = i
             }
@@ -64,6 +78,6 @@ const balFrag = (str, len=str.length) => {
 }
 
 
-// console.log(balFrag("attacCAT"))
+console.log(balFrag("attacCAT"))
 console.log(balFrag("catATTAC"))
 console.log(balFrag("ASDJKLWQEwjlkasfoiqOerLKDFIasAsdaSGDLeqreWrjkldsfASDTEUPOuISoDpisdFHKLASdasdetjlkqrj"))
