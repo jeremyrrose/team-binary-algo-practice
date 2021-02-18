@@ -44,3 +44,42 @@ def five_inserter_two (original):
 print(five_inserter_two(67891237043599))
 print(five_inserter_two(12341234))
 print(five_inserter_two(99996786666))
+
+
+# A string is called balanced when every letter occurring in the string, appears both in upper- and lowercase. For example, “CATattac” is balanced (‘a’, ‘c’, and ‘t’ occur in both cases), but “Madam” is not (‘d’ and ‘a’ appear only in lowercase). Note that the number of occurrences does not matter. Write a function: given a string S of length N, returns the length of the shortest balanced fragment of S. If S does not contain any balanced fragments, the function should return -1.
+
+def min_balanced (input_str):
+
+    min_length = len(input_str)
+    start = -1
+
+    for i in range(len(input_str)):
+
+        j = i
+        chars = {}
+
+        while j - i < min_length and j < len(input_str):
+            # print(chars)
+
+            letter = input_str[j]
+
+            if not (chars.get(letter.lower()) or chars.get(letter.upper())):
+                chars[letter] = 1
+            elif letter.isupper() and chars.get(letter.lower()):
+                chars[letter.lower()] = 0
+            elif letter.islower() and chars.get(letter.upper()):
+                chars[letter.upper()] = 0
+
+            if sum(chars.values()) == 0:
+                min_length = j - i
+                start = i
+
+            j += 1
+    
+    print('check:', input_str[start : start + min_length + 1])
+    return min_length + 1 if start > -1 else -1
+
+
+print(min_balanced("attackCATK"))
+print(min_balanced("catATTAC"))
+print(min_balanced("ASDJKLWQEwjlkasfoiqOerLKDFIasAsdaSGDLeqreWrjkldsfASDTEUPOuISoDpisdFHKLASdasdetjlkqrj"))
