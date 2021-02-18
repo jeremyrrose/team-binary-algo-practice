@@ -59,7 +59,6 @@ def min_balanced (input_str):
         chars = {}
 
         while j - i < min_length and j < len(input_str):
-            # print(chars)
 
             letter = input_str[j]
 
@@ -77,7 +76,7 @@ def min_balanced (input_str):
             j += 1
     
     print('check:', input_str[start : start + min_length + 1])
-    return min_length + 1 if start > -1 else -1
+    return min_length + 1 if start > -1 else start
 
 
 print(min_balanced("attackCATK"))
