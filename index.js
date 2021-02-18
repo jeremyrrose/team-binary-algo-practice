@@ -32,8 +32,7 @@ const balFrag = (str, len=str.length) => {
     let shortLen = len
     let shortIndex = -1
 
-    let i = 0
-    while (i < len) {
+    for (let i = 0; i < str.length; i++) {
 
         let j = i
         const chars = {}
@@ -71,7 +70,6 @@ const balFrag = (str, len=str.length) => {
             }
             j++
         }
-        i++
     }
     console.log("check it:", str.substr(shortIndex, shortLen + 1))
     return shortIndex > -1 ? shortLen + 1 : shortIndex
