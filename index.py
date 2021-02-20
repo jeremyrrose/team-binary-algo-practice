@@ -64,8 +64,10 @@ def min_balanced (input_str):
 
             if not (chars.get(letter.lower()) or chars.get(letter.upper())):
                 chars[letter] = 1
+
             elif letter.isupper() and chars.get(letter.lower()):
                 chars[letter.lower()] = 0
+                
             elif letter.islower() and chars.get(letter.upper()):
                 chars[letter.upper()] = 0
 
